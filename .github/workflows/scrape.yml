@@ -2,14 +2,14 @@ name: Market Data Sync
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # Runs automatically every 6 hours
-  workflow_dispatch: # Gives you a manual "Run Workflow" button on GitHub
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Required so the bot can push the JSON back to the repo
+      contents: write
 
     steps:
       - name: Checkout Repository
@@ -21,7 +21,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install Dependencies
-        run: pip install requests
+        run: pip install requests brotli
 
       - name: Run Analytics Engine
         run: python update_prices.py
@@ -31,5 +31,5 @@ jobs:
           git config --global user.name "MarketBot"
           git config --global user.email "bot@csrates.gg"
           git add prices.json
-          git commit -m "Auto-sync: Latest Market Data" || exit 0
+          git commit -m "Auto-sync: Skinport Cash Analytics" || exit 0
           git push
