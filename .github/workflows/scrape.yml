@@ -1,0 +1,35 @@
+name: Market Data Sync
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Runs automatically every 6 hours
+  workflow_dispatch: # Gives you a manual "Run Workflow" button on GitHub
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required so the bot can push the JSON back to the repo
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Analytics Engine
+        run: python update_prices.py
+
+      - name: Commit and Push Data
+        run: |
+          git config --global user.name "MarketBot"
+          git config --global user.email "bot@csrates.gg"
+          git add prices.json
+          git commit -m "Auto-sync: Latest Market Data" || exit 0
+          git push
