@@ -1,53 +1,53 @@
 {
     "gallery": {
         "name": "Gallery Case",
-        "casePrice": 1.42,
-        "totalEv": 2.15,
-        "roi": 71.5,
+        "casePrice": 1.15,
+        "totalEv": 0.82,
+        "roi": 22.4,
         "skins": [
             {
-                "n": "★ Kukri Knife",
+                "n": "\u2605 Kukri Knife",
                 "r": "gold",
                 "o": "0.26%",
-                "p": 400.00
+                "p": 0.0
             },
             {
                 "n": "M4A1-S | Vaporwave",
                 "r": "red",
                 "o": "0.64%",
-                "p": 45.00
+                "p": 74.03
             },
             {
                 "n": "Glock-18 | Gold Toof",
                 "r": "red",
                 "o": "0.64%",
-                "p": 30.00
+                "p": 41.08
             }
         ]
     },
     "kilowatt": {
         "name": "Kilowatt Case",
-        "casePrice": 0.61,
-        "totalEv": 1.83,
-        "roi": 68.4,
+        "casePrice": 0.25,
+        "totalEv": 0.69,
+        "roi": 25.1,
         "skins": [
             {
-                "n": "★ Kukri Knife",
+                "n": "\u2605 Kukri Knife",
                 "r": "gold",
                 "o": "0.26%",
-                "p": 380.00
+                "p": 0.0
             },
             {
                 "n": "AK-47 | Inheritance",
                 "r": "red",
                 "o": "0.64%",
-                "p": 75.00
+                "p": 62.72
             },
             {
                 "n": "AWP | Chrome Cannon",
                 "r": "red",
                 "o": "0.64%",
-                "p": 55.00
+                "p": 36.96
             }
         ]
     }
