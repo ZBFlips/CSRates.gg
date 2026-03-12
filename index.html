@@ -3,144 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSRates.gg | Live Analytics Dashboard</title>
+    <title>CSRates.gg | Deep Market Analytics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root { --neon: #00f3ff; --bg: #020617; --panel: #0a1428; }
-        body { background: var(--bg); color: #f1f5f9; font-family: 'Rajdhani', sans-serif; background-image: radial-gradient(circle at 50% 50%, #102a43 0%, #020617 100%); }
+        body { background: var(--bg); color: #f1f5f9; font-family: 'Rajdhani', sans-serif; background-image: radial-gradient(circle at 50% 50%, #102a43 0%, #020617 100%); min-height: 100vh;}
         .neon-text { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px var(--neon); }
-        .case-card { background: var(--panel); border: 1px solid rgba(0, 243, 255, 0.1); transition: 0.2s ease; cursor: pointer; position: relative; }
+        .case-card { background: var(--panel); border: 1px solid rgba(0, 243, 255, 0.1); transition: 0.2s ease; cursor: pointer; }
         .case-card:hover { border-color: var(--neon); box-shadow: 0 0 20px rgba(0, 243, 255, 0.3); transform: translateY(-4px); }
         #modal { display: none; position: fixed; inset: 0; background: rgba(2, 6, 23, 0.98); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(15px); }
         .modal-content { background: var(--panel); border: 1px solid var(--neon); width: 95%; max-width: 600px; padding: 2.5rem; border-radius: 4px; }
-        
-        .rarity-gold { color: #e4ae39; text-shadow: 0 0 8px #e4ae39; font-weight: bold; }
+        .rarity-gold { color: #e4ae39; font-weight: bold; }
         .rarity-red { color: #eb4b4b; font-weight: bold; }
         .rarity-pink { color: #d32ce6; font-weight: bold; }
         select { background: #0f172a; border: 1px solid #1e293b; color: var(--neon); padding: 6px 14px; font-family: 'Orbitron'; font-size: 10px; border-radius: 2px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--neon); border-radius: 4px;}
     </style>
 </head>
 <body class="p-6 md:p-12">
 
-    <header class="flex flex-col xl:flex-row justify-between items-center mb-16 max-w-7xl mx-auto border-b border-cyan-900/40 pb-8 gap-8">
+    <header class="flex flex-col xl:flex-row justify-between items-center mb-16 max-w-[1600px] mx-auto border-b border-cyan-900/40 pb-8 gap-8">
         <div>
             <h1 class="text-5xl font-bold neon-text text-cyan-400 italic">CSRATES.GG</h1>
-            <p id="syncStatus" class="text-[10px] tracking-[0.4em] text-cyan-800 mt-2 uppercase font-bold">Awaiting Market Sync...</p>
+            <p id="syncStatus" class="text-[10px] tracking-[0.4em] text-cyan-800 mt-2 uppercase font-bold">Initializing Bulk Stream...</p>
         </div>
         
         <div class="flex flex-wrap items-center gap-6 bg-slate-900/60 p-6 rounded border border-cyan-500/20">
-            <div class="flex flex-col gap-1">
-                <span class="text-[9px] font-bold text-gray-500 uppercase">Sort Database</span>
-                <select id="sortSelect" onchange="renderGrid()">
-                    <option value="roiDesc">ROI: High to Low</option>
-                    <option value="roiAsc">ROI: Low to High</option>
-                    <option value="priceDesc">Price: High to Low</option>
-                    <option value="priceAsc">Price: Low to High</option>
-                    <option value="newest">Release: Newest First</option>
-                </select>
-            </div>
+            <select id="sortSelect" onchange="renderGrid()">
+                <option value="roiDesc">True ROI: High to Low</option>
+                <option value="priceDesc">Container Cost: High to Low</option>
+                <option value="alpha">Alphabetical</option>
+            </select>
         </div>
     </header>
 
-    <div id="case-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 max-w-7xl mx-auto"></div>
+    <div id="case-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 max-w-[1600px] mx-auto"></div>
 
     <div id="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <h2 id="modalTitle" class="text-3xl font-bold neon-text text-white mb-2 uppercase tracking-tighter"></h2>
-            <p id="modalEv" class="text-xs text-green-400 font-mono mb-6 uppercase tracking-widest"></p>
+            <div class="flex justify-between items-center mb-6">
+                <p id="modalEv" class="text-xs text-green-400 font-mono uppercase tracking-widest"></p>
+                <p id="modalCost" class="text-xs text-red-400 font-mono uppercase tracking-widest"></p>
+            </div>
             
-            <div class="mb-4 text-[10px] uppercase tracking-widest text-cyan-700 font-bold">Top ROI Contributors</div>
+            <div class="mb-4 text-[10px] uppercase tracking-widest text-cyan-700 font-bold">Deep Yield Breakdown</div>
             <div id="lootList" class="space-y-3"></div>
             
-            <button onclick="closeModal()" class="mt-10 w-full py-4 bg-cyan-500/10 border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black transition uppercase font-bold text-xs tracking-[0.3em]">Return to Index</button>
+            <button onclick="closeModal()" class="mt-10 w-full py-4 bg-cyan-500/10 border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black transition uppercase font-bold text-xs tracking-[0.3em]">Disconnect</button>
         </div>
     </div>
 
     <script>
         const imgBase = "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/assets/img/containers/";
-        
-        // Static UI Metadata (Images and Dates)
-        const uiMeta = {
-    "deadhand": { img: "sealed-dead-hand-terminal.png", date: "2026-03-11" },
-    "genesis": { img: "sealed-genesis-terminal.png", date: "2025-09-17" },
-    "fever": { img: "fever-case.png", date: "2025-04-01" },
-    "gallery": { img: "gallery-case.png", date: "2024-10-02" },
-    "kilowatt": { img: "kilowatt-case.png", date: "2024-02-06" },
-    "revolution": { img: "revolution-case.png", date: "2023-02-09" },
-    "wildfire": { img: "operation-wildfire-case.png", date: "2016-02-17" },
-    "hydra": { img: "operation-hydra-case.png", date: "2017-05-23" },
-    "bravo": { img: "operation-bravo-case.png", date: "2013-09-19" }
-};
-
         let liveData = [];
-        let currentModalId = null;
+
+        // Generates the correct image file name based on the container name
+        function formatImageName(name) {
+            return name.toLowerCase().replace(/ /g, '-').replace(/:/g, '').replace(/&/g, '') + ".png";
+        }
 
         async function fetchMarketData() {
             try {
                 const response = await fetch(`./prices.json?t=${new Date().getTime()}`);
                 const jsonData = await response.json();
                 
-                // Merge Live Python Data with Static UI Data
-                liveData = Object.keys(jsonData).map(key => {
-                    const meta = uiMeta[key] || { img: "base_case_1.png", date: "2000-01-01" };
-                    return { id: key, ...jsonData[key], ...meta };
-                });
-
-                document.getElementById('syncStatus').innerText = "MARKET DATA SYNCED & LIVE";
+                liveData = Object.keys(jsonData).map(key => ({
+                    id: key, 
+                    img: formatImageName(jsonData[key].name),
+                    ...jsonData[key] 
+                }));
+                
+                document.getElementById('syncStatus').innerText = "BULK MARKET DATA SYNCED";
                 document.getElementById('syncStatus').className = "text-[10px] tracking-[0.4em] text-green-500 mt-2 uppercase font-bold";
                 renderGrid();
-            } catch (error) {
-                console.error("No prices.json found. Make sure GitHub Actions ran successfully.");
-                document.getElementById('syncStatus').innerText = "SYNC FAILED: NO LOCAL JSON FOUND";
-                document.getElementById('syncStatus').classList.replace('text-cyan-800', 'text-red-500');
+            } catch (error) { 
+                console.error("Data ingestion failed.", error); 
+                document.getElementById('syncStatus').innerText = "DATA PIPELINE OFFLINE";
+                document.getElementById('syncStatus').className = "text-[10px] tracking-[0.4em] text-red-500 mt-2 uppercase font-bold";
             }
         }
 
         function renderGrid() {
-            if (!liveData.length) return;
             const grid = document.getElementById('case-grid');
             const sortVal = document.getElementById('sortSelect').value;
 
-            // Sort directly by the pre-calculated Python values
             if (sortVal === 'roiDesc') liveData.sort((a, b) => b.roi - a.roi);
-            else if (sortVal === 'roiAsc') liveData.sort((a, b) => a.roi - b.roi);
             else if (sortVal === 'priceDesc') liveData.sort((a, b) => b.casePrice - a.casePrice);
-            else if (sortVal === 'priceAsc') liveData.sort((a, b) => a.casePrice - b.casePrice);
-            else liveData.sort((a, b) => new Date(b.date) - new Date(a.date));
+            else liveData.sort((a, b) => a.name.localeCompare(b.name));
 
             grid.innerHTML = liveData.map(c => `
                 <div class="case-card p-4 rounded flex flex-col items-center" onclick="openModal('${c.id}')">
                     <span class="text-[9px] font-bold ${c.roi >= 100 ? 'text-green-400' : 'text-cyan-400'} mb-4 border border-cyan-900 px-2 bg-black/80">${c.roi}% ROI</span>
-                    <img src="${imgBase}${c.img}" onerror="this.src='https://via.placeholder.com/150x100/0a1428/00f3ff?text=Container'" class="w-32 h-24 object-contain">
+                    <img src="${imgBase}${c.img}" onerror="this.src='https://via.placeholder.com/150x100/0a1428/00f3ff?text=Case'" class="w-32 h-24 object-contain">
                     <h3 class="text-[9px] font-bold text-white mt-4 text-center uppercase tracking-widest">${c.name}</h3>
-                    <p class="text-[8px] text-gray-500 font-mono mt-1">$${c.casePrice.toFixed(2)}</p>
                 </div>
             `).join('');
         }
 
         function openModal(id) {
-            currentModalId = id;
             const c = liveData.find(x => x.id === id);
             document.getElementById('modalTitle').innerText = c.name;
             document.getElementById('modalEv').innerText = `Total EV: $${c.totalEv.toFixed(2)}`;
+            document.getElementById('modalCost').innerText = `Key+Case Cost: $${(c.casePrice + 2.49).toFixed(2)}`;
             
             document.getElementById('lootList').innerHTML = c.skins.map(s => `
-                <div class="flex justify-between items-center bg-white/5 p-4 border-l-2 border-cyan-900 hover:border-cyan-500 transition">
-                    <div>
-                        <div class="text-xs font-bold rarity-${s.r} uppercase tracking-tighter">${s.n}</div>
-                        <div class="text-[10px] text-green-400 font-mono mt-1">$${s.p.toFixed(2)} USD</div>
+                <div class="flex flex-col bg-white/5 p-4 border-l-2 border-cyan-900 hover:border-cyan-500 transition">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold rarity-${s.rarity} uppercase tracking-tighter">${s.base_name}</span>
+                        <span class="text-[10px] text-cyan-400 font-mono">EV Added: $${s.weighted_ev.toFixed(2)}</span>
                     </div>
-                    <div class="text-[10px] font-mono text-cyan-400 opacity-60 uppercase bg-black/50 px-2 py-1 border border-cyan-900/50">${s.o} Drop Rate</div>
+                    <div class="flex justify-between items-center border-t border-cyan-900/30 pt-2">
+                        <span class="text-[8px] text-gray-500 uppercase">Max Pull: ${s.top_pull.replace('StatTrak™ ', 'ST ')}</span>
+                        <span class="text-[10px] text-green-400 font-mono">$${s.top_pull_price.toFixed(2)}</span>
+                    </div>
                 </div>
             `).join('');
             
             document.getElementById('modal').style.display = 'flex';
         }
 
-        function closeModal() { document.getElementById('modal').style.display = 'none'; currentModalId = null; }
-        
-        // Start the engine
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
         fetchMarketData();
     </script>
 </body>
