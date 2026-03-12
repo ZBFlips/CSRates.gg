@@ -1,17 +1,17 @@
 import requests
 import json
-import time
+import brotli
 
 # Core Economics
 KEY_COST = 2.49
-BULK_API_URL = "http://csgobackpack.net/api/GetItemsList/v2/?no_details=true"
+BULK_API_URL = "https://api.skinport.com/v1/items?app_id=730&currency=USD&tradable=0"
 
 # The Master Probability Matrix
 RARITY_ODDS = { "gold": 0.0026, "red": 0.0064, "pink": 0.032, "purple": 0.1598, "blue": 0.7992 }
 WEAR_WEIGHTS = { "Factory New": 0.07, "Minimal Wear": 0.08, "Field-Tested": 0.23, "Well-Worn": 0.07, "Battle-Scarred": 0.55 }
 STATTRAK_CHANCE = { "ST": 0.10, "Non-ST": 0.90 }
 
-# Capped-Float Anomalies (Adjusts mathematical weights for restricted skins)
+# Capped-Float Anomalies
 FLOAT_ANOMALIES = {
     "Asiimov": ["Field-Tested", "Well-Worn", "Battle-Scarred"],
     "Redline": ["Minimal Wear", "Field-Tested", "Well-Worn", "Battle-Scarred"],
@@ -71,25 +71,30 @@ ROSTER = {
 }
 
 def fetch_bulk_market_data():
-    """Fetches entire SCM pricing DB in one request."""
-    print("Downloading Bulk API Dump...")
+    print("Downloading Skinport Bulk API Dump (Real Cash Prices)...")
+    headers = { "Accept-Encoding": "br" }
     try:
-        res = requests.get(BULK_API_URL, timeout=30)
+        res = requests.get(BULK_API_URL, headers=headers, timeout=45)
         if res.status_code == 200:
-            return res.json().get('items_list', {})
+            data = res.json()
+            return {item['market_hash_name']: item for item in data}
+        else:
+            print(f"Server rejected request. HTTP Status Code: {res.status_code}")
     except Exception as e:
         print(f"Failed to fetch bulk data: {e}")
     return {}
 
 def get_price_from_dump(dump, market_hash_name):
-    """Extracts skin price, removes Steam Tax (0.85x)."""
     item = dump.get(market_hash_name)
-    if item and 'price' in item and item['price']:
-        raw_price = item['price'].get('lowest_price', 0)
-        if isinstance(raw_price, str):
-            raw_price = float(raw_price.replace('$', '').replace(',', ''))
-        return round(raw_price * 0.85, 2)
-    return 0.0
+    if not item:
+        return 0.0
+    
+    # Skinport gives real cash value. Prioritize stable suggested price, fallback to min.
+    price = item.get("suggested_price")
+    if not price:
+        price = item.get("min_price", 0.0)
+        
+    return round(float(price), 2)
 
 def process_market():
     market_dump = fetch_bulk_market_data()
@@ -97,29 +102,27 @@ def process_market():
         print("Abort: No market data retrieved.")
         return
 
+    print("Data acquired. Executing float-weighted analytics matrix...")
     final_db = {}
     
     for case_id, case_data in ROSTER.items():
         case_price = get_price_from_dump(market_dump, case_data['name'])
-        total_case_ev = case_data['f'] # Start with low-tier floor value
+        total_case_ev = case_data['f']
         skin_reports = []
         
         for skin in case_data['skins']:
             skin_ev = 0.0
             top_pull = {"name": "", "price": 0.0}
             
-            # Dynamic Float Capping Logic
             active_wears = WEAR_WEIGHTS.copy()
-            if skin['pattern'] in FLOAT_ANOMALIES:
-                allowed = FLOAT_ANOMALIES[skin['pattern']]
+            if skin['p'] in FLOAT_ANOMALIES:
+                allowed = FLOAT_ANOMALIES[skin['p']]
                 active_wears = {k: v for k, v in active_wears.items() if k in allowed}
-                # Normalize weights so they equal 100% of the drop pool
                 total_allowed_weight = sum(active_wears.values())
                 active_wears = {k: v / total_allowed_weight for k, v in active_wears.items()}
 
             for wear, w_weight in active_wears.items():
                 for st_status, st_weight in STATTRAK_CHANCE.items():
-                    # Souvenirs and Terminals handling for ST
                     if case_data['s'] and st_status == "ST":
                         continue 
                         
