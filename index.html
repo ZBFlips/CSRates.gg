@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaseIndex.gg | CS2 ROI Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .case-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        .roi-positive { color: #4ade80; }
+        .roi-negative { color: #f87171; }
+        body { background-color: #0b0e14; color: #e2e8f0; }
+    </style>
+</head>
+<body class="p-8">
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-orange-500 tracking-tighter">CASEINDEX.GG</h1>
+        <p class="text-gray-400 mt-2">Real-time ROI & Expected Value for CS2 Containers</p>
+    </header>
+
+    <div class="flex justify-center gap-4 mb-8">
+        <button onclick="filterType('all')" class="bg-gray-800 px-4 py-2 rounded border border-gray-600 hover:bg-orange-600 transition">All</button>
+        <button onclick="filterType('case')" class="bg-gray-800 px-4 py-2 rounded border border-gray-600 hover:bg-orange-600 transition">Cases</button>
+        <button onclick="filterType('souvenir')" class="bg-gray-800 px-4 py-2 rounded border border-gray-600 hover:bg-orange-600 transition">Souvenirs</button>
+    </div>
+
+    <div id="case-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        </div>
+
+    <script>
+        // Key price is static
+        const KEY_COST = 2.50;
+
+        // Simplified Data for Demo
+        // In your real version, this will be your 'prices.json' updated by Playwright
+        const containers = [
+            { 
+                id: "gallery_case",
+                name: "Gallery Case", 
+                type: "case", 
+                price: 0.85, 
+                avgLootValue: 1.88, 
+                img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXU5A1PIYQNkHpOSf-fRPv9h_fLXVp-KAtfv_WvLw9u7vX3fTxQ69n4wtjYxqT2Z-uFkz4Fu8Yp07yYpY7zi1Gy_0E9Ym_6I9Scc1U_ZAzR_1O_lee-h5_u75_AyXU37ykm7CHezRLih6BVA_ovm7XAHre7XidL"
+            },
+            { 
+                id: "kilowatt_case",
+                name: "Kilowatt Case", 
+                type: "case", 
+                price: 0.60, 
+                avgLootValue: 1.83, 
+                img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXU5A1PIYQNkHpOSf-fRPv9h_fLXVp-KAtfv_WvLw9u7vX3fTxQ69n4wtjYxqT2Z7uGz28Iu5Yp07yYpY33i1Gy_0E9Ym_6I9Scc1U_ZAzR_1O_lee-h5_u75_AyXU37ykm7CHezRLih6BVA_ovm7XAHsFAn05P"
+            },
+            { 
+                id: "paris_souvenir",
+                name: "Paris 2023 Mirage", 
+                type: "souvenir", 
+                price: 3.50, 
+                avgLootValue: 2.10, 
+                img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXU5A1PIYQNkHpOSf-fRPv9h_fLXVp-KAtfv_WvLw9u7vX3fTxQ69n4wtjYxqT2Z-mFwz8G68Fw2-iYpY7zi1Gy_0E9Ym_6I9Scc1U_ZAzR_1O_lee-h5_u75_AyXU37ykm7CHezRLih6BVA_ovm7XAHp3p_Uf6"
+            }
+        ];
+
+        function renderGrid(data) {
+            const grid = document.getElementById('case-grid');
+            grid.innerHTML = '';
+
+            data.forEach(item => {
+                const totalCost = item.type === 'case' ? (item.price + KEY_COST) : item.price;
+                const roi = ((item.avgLootValue / totalCost) * 100).toFixed(1);
+                const isPositive = roi >= 100;
+
+                grid.innerHTML += `
+                    <div class="case-card bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col items-center">
+                        <div class="relative">
+                            <img src="${item.img}" alt="${item.name}" class="w-40 h-40 object-contain mb-4">
+                            <span class="absolute top-0 right-0 px-2 py-1 rounded text-xs font-bold ${isPositive ? 'bg-green-600' : 'bg-red-600'}">
+                                ${roi}% ROI
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">${item.name}</h3>
+                        <p class="text-sm text-gray-400">Total Cost: $${totalCost.toFixed(2)}</p>
+                        <p class="text-sm font-semibold mt-2">EV: <span class="${isPositive ? 'text-green-400' : 'text-red-400'}">$${item.avgLootValue.toFixed(2)}</span></p>
+                    </div>
+                `;
+            });
+        }
+
+        function filterType(type) {
+            if(type === 'all') return renderGrid(containers);
+            const filtered = containers.filter(c => c.type === type);
+            renderGrid(filtered);
+        }
+
+        // Initialize
+        renderGrid(containers);
+    </script>
+</body>
+</html>
