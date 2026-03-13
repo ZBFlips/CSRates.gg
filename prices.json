@@ -339,8 +339,8 @@
     "falchion": {
         "name": "Falchion Case",
         "casePrice": 2.3,
-        "totalEv": 1.12,
-        "roi": 23.38,
+        "totalEv": 1.15,
+        "roi": 24.03,
         "skins": [
             {
                 "base_name": "AWP | Hyper Beast",
@@ -352,7 +352,7 @@
             {
                 "base_name": "AK-47 | Aquamarine Revenge",
                 "rarity": "red",
-                "weighted_ev": 0.5007,
+                "weighted_ev": 0.5321,
                 "top_pull": "StatTrak\u2122 AK-47 | Aquamarine Revenge (Factory New)",
                 "top_pull_price": 436.69
             }
@@ -361,13 +361,13 @@
     "shadow": {
         "name": "Shadow Case",
         "casePrice": 2.31,
-        "totalEv": 1.73,
-        "roi": 36.03,
+        "totalEv": 1.66,
+        "roi": 34.66,
         "skins": [
             {
                 "base_name": "USP-S | Kill Confirmed",
                 "rarity": "red",
-                "weighted_ev": 0.8476,
+                "weighted_ev": 0.7816,
                 "top_pull": "StatTrak\u2122 USP-S | Kill Confirmed (Factory New)",
                 "top_pull_price": 827.23
             },
@@ -427,20 +427,20 @@
     "gamma": {
         "name": "Gamma Case",
         "casePrice": 4.76,
-        "totalEv": 1.53,
-        "roi": 21.1,
+        "totalEv": 1.51,
+        "roi": 20.87,
         "skins": [
             {
                 "base_name": "M4A1-S | Mecha Industries",
                 "rarity": "red",
-                "weighted_ev": 1.0021,
+                "weighted_ev": 0.9927,
                 "top_pull": "M4A1-S | Mecha Industries (Factory New)",
                 "top_pull_price": 343.55
             },
             {
                 "base_name": "Glock-18 | Wasteland Rebel",
                 "rarity": "red",
-                "weighted_ev": 0.3776,
+                "weighted_ev": 0.3701,
                 "top_pull": "Glock-18 | Wasteland Rebel (Factory New)",
                 "top_pull_price": 187.76
             }
@@ -449,13 +449,13 @@
     "gamma2": {
         "name": "Gamma 2 Case",
         "casePrice": 4.54,
-        "totalEv": 2.04,
-        "roi": 28.99,
+        "totalEv": 1.98,
+        "roi": 28.12,
         "skins": [
             {
                 "base_name": "AK-47 | Neon Revolution",
                 "rarity": "red",
-                "weighted_ev": 0.9951,
+                "weighted_ev": 0.9338,
                 "top_pull": "AK-47 | Neon Revolution (Factory New)",
                 "top_pull_price": 501.73
             },
@@ -471,8 +471,8 @@
     "glove": {
         "name": "Glove Case",
         "casePrice": 22.36,
-        "totalEv": 5.4,
-        "roi": 21.75,
+        "totalEv": 5.24,
+        "roi": 21.07,
         "skins": [
             {
                 "base_name": "M4A4 | Buzz Kill",
@@ -484,7 +484,7 @@
             {
                 "base_name": "SSG 08 | Dragonfire",
                 "rarity": "red",
-                "weighted_ev": 2.5727,
+                "weighted_ev": 2.4036,
                 "top_pull": "SSG 08 | Dragonfire (Factory New)",
                 "top_pull_price": 574.28
             }
@@ -537,8 +537,8 @@
     "hydra": {
         "name": "Operation Hydra Case",
         "casePrice": 58.41,
-        "totalEv": 4.04,
-        "roi": 6.63,
+        "totalEv": 4.03,
+        "roi": 6.62,
         "skins": [
             {
                 "base_name": "AWP | Oni Taiji",
@@ -550,7 +550,7 @@
             {
                 "base_name": "Five-SeveN | Hyper Beast",
                 "rarity": "red",
-                "weighted_ev": 1.4451,
+                "weighted_ev": 1.4378,
                 "top_pull": "Five-SeveN | Hyper Beast (Factory New)",
                 "top_pull_price": 717.89
             }
@@ -669,8 +669,8 @@
     "cs20": {
         "name": "CS20 Case",
         "casePrice": 1.61,
-        "totalEv": 0.74,
-        "roi": 18.12,
+        "totalEv": 0.73,
+        "roi": 17.92,
         "skins": [
             {
                 "base_name": "AWP | Wildfire",
@@ -682,7 +682,7 @@
             {
                 "base_name": "FAMAS | Commemoration",
                 "rarity": "red",
-                "weighted_ev": 0.1572,
+                "weighted_ev": 0.149,
                 "top_pull": "StatTrak\u2122 FAMAS | Commemoration (Factory New)",
                 "top_pull_price": 108.31
             }
@@ -779,13 +779,13 @@
     "riptide": {
         "name": "Operation Riptide Case",
         "casePrice": 16.33,
-        "totalEv": 0.63,
-        "roi": 3.33,
+        "totalEv": 0.91,
+        "roi": 4.84,
         "skins": [
             {
                 "base_name": "Desert Eagle | Ocean Drive",
                 "rarity": "red",
-                "weighted_ev": 0.5471,
+                "weighted_ev": 0.8307,
                 "top_pull": "Desert Eagle | Ocean Drive (Factory New)",
                 "top_pull_price": 532.53
             },
