@@ -46,13 +46,13 @@
     "weapon3": {
         "name": "CS:GO Weapon Case 3",
         "casePrice": 20.06,
-        "totalEv": 1.59,
-        "roi": 7.03,
+        "totalEv": 1.6,
+        "roi": 7.09,
         "skins": [
             {
                 "base_name": "CZ75-Auto | Victoria",
                 "rarity": "red",
-                "weighted_ev": 0.6267,
+                "weighted_ev": 0.6402,
                 "top_pull": "StatTrak\u2122 CZ75-Auto | Victoria (Factory New)",
                 "top_pull_price": 196.16
             },
@@ -273,8 +273,8 @@
     "chroma": {
         "name": "Chroma Case",
         "casePrice": 6.4,
-        "totalEv": 1.11,
-        "roi": 12.49,
+        "totalEv": 1.43,
+        "roi": 16.05,
         "skins": [
             {
                 "base_name": "AWP | Man-o'-war",
@@ -286,9 +286,9 @@
             {
                 "base_name": "Galil AR | Chatterbox",
                 "rarity": "red",
-                "weighted_ev": 0.5893,
-                "top_pull": "StatTrak\u2122 Galil AR | Chatterbox (Well-Worn)",
-                "top_pull_price": 155.62
+                "weighted_ev": 0.9054,
+                "top_pull": "Galil AR | Chatterbox (Field-Tested)",
+                "top_pull_price": 238.65
             }
         ]
     },
@@ -361,8 +361,8 @@
     "shadow": {
         "name": "Shadow Case",
         "casePrice": 2.31,
-        "totalEv": 1.66,
-        "roi": 34.66,
+        "totalEv": 1.69,
+        "roi": 35.11,
         "skins": [
             {
                 "base_name": "USP-S | Kill Confirmed",
@@ -374,9 +374,9 @@
             {
                 "base_name": "M4A1-S | Golden Coil",
                 "rarity": "red",
-                "weighted_ev": 0.7619,
-                "top_pull": "M4A1-S | Golden Coil (Factory New)",
-                "top_pull_price": 489.24
+                "weighted_ev": 0.7839,
+                "top_pull": "StatTrak\u2122 M4A1-S | Golden Coil (Factory New)",
+                "top_pull_price": 490.84
             }
         ]
     },
@@ -450,12 +450,12 @@
         "name": "Gamma 2 Case",
         "casePrice": 4.54,
         "totalEv": 1.98,
-        "roi": 28.12,
+        "roi": 28.19,
         "skins": [
             {
                 "base_name": "AK-47 | Neon Revolution",
                 "rarity": "red",
-                "weighted_ev": 0.9338,
+                "weighted_ev": 0.9391,
                 "top_pull": "AK-47 | Neon Revolution (Factory New)",
                 "top_pull_price": 501.73
             },
@@ -713,8 +713,8 @@
     "fracture": {
         "name": "Fracture Case",
         "casePrice": 0.76,
-        "totalEv": 0.75,
-        "roi": 23.11,
+        "totalEv": 0.76,
+        "roi": 23.24,
         "skins": [
             {
                 "base_name": "AK-47 | Legion of Anubis",
@@ -726,7 +726,7 @@
             {
                 "base_name": "Desert Eagle | Printstream",
                 "rarity": "red",
-                "weighted_ev": 0.3726,
+                "weighted_ev": 0.3767,
                 "top_pull": "StatTrak\u2122 Desert Eagle | Printstream (Factory New)",
                 "top_pull_price": 224.2
             }
