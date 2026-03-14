@@ -119,8 +119,8 @@
     "esportswinter": {
         "name": "eSports 2013 Winter Case",
         "casePrice": 28.2,
-        "totalEv": 2.35,
-        "roi": 7.65,
+        "totalEv": 1.67,
+        "roi": 5.43,
         "skins": [
             {
                 "base_name": "M4A4 | X-Ray",
@@ -132,7 +132,7 @@
             {
                 "base_name": "Desert Eagle | Cobalt Disruption",
                 "rarity": "pink",
-                "weighted_ev": 1.4528,
+                "weighted_ev": 0.771,
                 "top_pull": "StatTrak\u2122 Desert Eagle | Cobalt Disruption (Factory New)",
                 "top_pull_price": 233.48
             }
@@ -141,8 +141,8 @@
     "esportssummer": {
         "name": "eSports 2014 Summer Case",
         "casePrice": 31.3,
-        "totalEv": 8.54,
-        "roi": 25.26,
+        "totalEv": 8.29,
+        "roi": 24.52,
         "skins": [
             {
                 "base_name": "M4A4 | Bullet Rain",
@@ -154,9 +154,9 @@
             {
                 "base_name": "AK-47 | Jaguar",
                 "rarity": "pink",
-                "weighted_ev": 5.5733,
-                "top_pull": "StatTrak\u2122 AK-47 | Jaguar (Factory New)",
-                "top_pull_price": 1118.02
+                "weighted_ev": 5.3229,
+                "top_pull": "AK-47 | Jaguar (Factory New)",
+                "top_pull_price": 993.8
             }
         ]
     },
@@ -207,15 +207,15 @@
     "huntsman": {
         "name": "Huntsman Weapon Case",
         "casePrice": 12.6,
-        "totalEv": 2.53,
-        "roi": 16.78,
+        "totalEv": 2.45,
+        "roi": 16.24,
         "skins": [
             {
                 "base_name": "AK-47 | Vulcan",
                 "rarity": "red",
-                "weighted_ev": 1.8038,
-                "top_pull": "StatTrak\u2122 AK-47 | Vulcan (Factory New)",
-                "top_pull_price": 1801.24
+                "weighted_ev": 1.7231,
+                "top_pull": "AK-47 | Vulcan (Factory New)",
+                "top_pull_price": 916.45
             },
             {
                 "base_name": "M4A4 | Desert-Strike",
@@ -252,7 +252,7 @@
         "name": "Operation Vanguard Weapon Case",
         "casePrice": 7.31,
         "totalEv": 1.35,
-        "roi": 13.82,
+        "roi": 13.78,
         "skins": [
             {
                 "base_name": "AK-47 | Wasteland Rebel",
@@ -264,7 +264,7 @@
             {
                 "base_name": "M4A4 | Griffin",
                 "rarity": "pink",
-                "weighted_ev": 0.3288,
+                "weighted_ev": 0.3249,
                 "top_pull": "M4A4 | Griffin (Factory New)",
                 "top_pull_price": 87.1
             }
@@ -604,14 +604,14 @@
         "name": "Danger Zone Case",
         "casePrice": 2.09,
         "totalEv": 0.81,
-        "roi": 17.74,
+        "roi": 17.62,
         "skins": [
             {
                 "base_name": "AK-47 | Asiimov",
                 "rarity": "red",
-                "weighted_ev": 0.3793,
-                "top_pull": "StatTrak\u2122 AK-47 | Asiimov (Well-Worn)",
-                "top_pull_price": 103.75
+                "weighted_ev": 0.3739,
+                "top_pull": "StatTrak\u2122 AK-47 | Asiimov (Field-Tested)",
+                "top_pull_price": 93.47
             },
             {
                 "base_name": "AWP | Neo-Noir",
@@ -625,13 +625,13 @@
     "prisma": {
         "name": "Prisma Case",
         "casePrice": 1.91,
-        "totalEv": 1.18,
-        "roi": 26.75,
+        "totalEv": 1.15,
+        "roi": 26.18,
         "skins": [
             {
                 "base_name": "M4A4 | The Emperor",
                 "rarity": "red",
-                "weighted_ev": 0.6371,
+                "weighted_ev": 0.6118,
                 "top_pull": "StatTrak\u2122 M4A4 | The Emperor (Factory New)",
                 "top_pull_price": 467.61
             },
@@ -648,7 +648,7 @@
         "name": "Prisma 2 Case",
         "casePrice": 1.96,
         "totalEv": 1.03,
-        "roi": 23.23,
+        "roi": 23.16,
         "skins": [
             {
                 "base_name": "M4A1-S | Player Two",
@@ -660,7 +660,7 @@
             {
                 "base_name": "MAC-10 | Stalker",
                 "rarity": "red",
-                "weighted_ev": 0.4265,
+                "weighted_ev": 0.4232,
                 "top_pull": "MAC-10 | Stalker (Factory New)",
                 "top_pull_price": 330.43
             }
@@ -692,7 +692,7 @@
         "name": "Shattered Web Case",
         "casePrice": 8.43,
         "totalEv": 1.74,
-        "roi": 15.96,
+        "roi": 15.93,
         "skins": [
             {
                 "base_name": "AWP | Containment Breach",
@@ -704,7 +704,7 @@
             {
                 "base_name": "MAC-10 | Stalker",
                 "rarity": "red",
-                "weighted_ev": 0.4265,
+                "weighted_ev": 0.4232,
                 "top_pull": "MAC-10 | Stalker (Factory New)",
                 "top_pull_price": 330.43
             }
@@ -889,8 +889,8 @@
     "gallery": {
         "name": "Gallery Case",
         "casePrice": 1.29,
-        "totalEv": 1.14,
-        "roi": 30.06,
+        "totalEv": 1.12,
+        "roi": 29.56,
         "skins": [
             {
                 "base_name": "M4A1-S | Vaporwave",
@@ -902,7 +902,7 @@
             {
                 "base_name": "Glock-18 | Gold Toof",
                 "rarity": "red",
-                "weighted_ev": 0.3696,
+                "weighted_ev": 0.3509,
                 "top_pull": "Glock-18 | Gold Toof (Factory New)",
                 "top_pull_price": 235.37
             }
